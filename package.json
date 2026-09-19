@@ -1,0 +1,19 @@
+{
+  "name": "insightt-task-list",
+  "version": "1.0.0",
+  "private": true,
+  "workspaces": ["backend", "mobile"],
+  "scripts": {
+    "dev:backend": "npm run dev --workspace backend",
+    "dev:mobile": "npm run start --workspace mobile",
+    "test": "npm run test --workspaces --if-present",
+    "lint": "npm run lint --workspaces --if-present",
+    "build": "npm run build --workspace backend",
+    "symlinks": "bash scripts/symlink-hoisted.sh",
+    "postinstall": "npm run symlinks"
+  },
+  "engines": { "node": ">=18" },
+  "overrides": {
+    "connect": "3.7.0"
+  }
+}
