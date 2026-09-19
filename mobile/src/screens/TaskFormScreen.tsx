@@ -70,7 +70,11 @@ export function TaskFormScreen(): React.JSX.Element {
     setSnackbarError(null);
     try {
       if (isEditMode && taskId) {
-        await updateMutation.mutateAsync({ id: taskId, payload: values });
+        // The backend treats "description present in the payload" as "trying to
+        // change it" regardless of value, and rejects that on a DONE task — so
+        // only send the field that's actually editable here.
+        const payload = isDoneTask ? { title: values.title } : values;
+        await updateMutation.mutateAsync({ id: taskId, payload });
       } else {
         await createMutation.mutateAsync(values);
       }
